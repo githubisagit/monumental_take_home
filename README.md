@@ -54,6 +54,7 @@ brick-wall-simulator
 ### Interactive Controls
 
 - **ENTER**: Build the next brick in the optimized sequence
+- **'f'**: Fast-forward to complete wall (build all remaining bricks instantly)
 - **'s'**: Toggle stride visualization (shows robot position groupings)  
 - **'q'**: Quit the simulator
 
@@ -93,7 +94,6 @@ brick_wall_simulator/
 │   └── ascii_renderer.py # ASCII art rendering system
 ├── optimization/
 │   └── robot_optimizer.py # Robot movement optimization
-├── utils/
 └── main.py               # Main application entry point
 ```
 
@@ -111,11 +111,6 @@ brick_wall_simulator/
 4. **Build Order**: Prioritizes bottom-to-top, left-to-right within strides
 
 ## Development
-
-### Running Tests
-```bash
-python -m pytest tests/
-```
 
 ### Code Structure
 The simulator follows a modular architecture:

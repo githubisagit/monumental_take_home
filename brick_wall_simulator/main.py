@@ -10,7 +10,7 @@ class WallSimulator:
         self.wall = Wall()
         self.renderer = ASCIIRenderer(self.wall)
         self.optimizer = RobotOptimizer(self.wall)
-        self.show_strides = False
+        self.show_strides = True
         
     def initialize(self):
         """Initialize the wall and optimize build order"""
@@ -39,6 +39,12 @@ class WallSimulator:
         print("\nPress ENTER to start building...")
         input()
     
+    def build_complete_wall(self):
+        """Build all remaining bricks instantly"""
+        while not self.wall.is_complete():
+            self.wall.build_next_brick()
+        print("Wall completed instantly!")
+    
     def run_interactive_mode(self):
         """Run the interactive brick-by-brick building mode"""
         while not self.wall.is_complete():
@@ -46,7 +52,7 @@ class WallSimulator:
             self.renderer.display(self.show_strides)
             
             # Get user input
-            user_input = input("\nPress ENTER to build next brick, 's' to toggle strides, 'q' to quit: ").strip().lower()
+            user_input = input("\nPress ENTER to build next brick, 'f' to fast-forward to complete wall, 's' to toggle strides, 'q' to quit: ").strip().lower()
             
             if user_input == 'q':
                 print("Exiting simulator...")
@@ -54,6 +60,9 @@ class WallSimulator:
             elif user_input == 's':
                 self.show_strides = not self.show_strides
                 continue
+            elif user_input == 'f':
+                self.build_complete_wall()
+                break
             elif user_input == '':
                 # Build next brick
                 next_brick = self.wall.build_next_brick()
@@ -61,7 +70,7 @@ class WallSimulator:
                     built, total = self.wall.get_progress()
                     print(f"Built brick {built}/{total} at position ({next_brick.position[0]:.0f}, {next_brick.position[1]:.0f})")
             else:
-                print("Invalid input. Press ENTER to build, 's' to toggle strides, 'q' to quit.")
+                print("Invalid input. Press ENTER to build, 'f' to fast-forward, 's' to toggle strides, 'q' to quit.")
         
         # Wall complete
         self.renderer.display(self.show_strides)
