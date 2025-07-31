@@ -52,7 +52,8 @@ class WallSimulator:
             self.renderer.display(self.show_strides)
             
             # Get user input
-            user_input = input("\nPress ENTER to build next brick, 'f' to fast-forward to complete wall, 's' to toggle strides, 'q' to quit: ").strip().lower()
+            stride_status = "ON" if self.show_strides else "OFF"
+            user_input = input(f"\nPress ENTER to build next brick, 'f' to fast-forward, 's' to toggle strides ({stride_status}), 'q' to quit: ").strip().lower()
             
             if user_input == 'q':
                 print("Exiting simulator...")
